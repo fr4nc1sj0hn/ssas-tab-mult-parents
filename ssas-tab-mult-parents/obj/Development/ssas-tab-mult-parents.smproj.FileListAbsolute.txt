@@ -1,0 +1,7 @@
+C:\Users\FRANC583\Source\Repos\ssas-tab-mult-parents\ssas-tab-mult-parents\bin\Model.asdatabase
+C:\Users\FRANC583\Source\Repos\ssas-tab-mult-parents\ssas-tab-mult-parents\bin\Model.deploymenttargets
+C:\Users\FRANC583\Source\Repos\ssas-tab-mult-parents\ssas-tab-mult-parents\bin\Model.deploymentoptions
+C:\Users\FRANC583\Source\Repos\ssas-tab-mult-parents\ssas-tab-mult-parents\obj\Development\ssas-tab-mult-parents.smproj.CoreCompileInputs.cache
+C:\Users\FRANC583\Source\Repos\ssas-tab-mult-parents\ssas-tab-mult-parents\obj\Development\Model.asdatabase
+C:\Users\FRANC583\Source\Repos\ssas-tab-mult-parents\ssas-tab-mult-parents\obj\Development\Model.deploymentoptions
+C:\Users\FRANC583\Source\Repos\ssas-tab-mult-parents\ssas-tab-mult-parents\obj\Development\Model.deploymenttargets
