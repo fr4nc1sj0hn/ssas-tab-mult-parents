@@ -1,0 +1,190 @@
+{
+  "name": "ssas-tab-mult-parents-2",
+  "compatibilityLevel": 1400,
+  "model": {
+    "culture": "en-US",
+    "dataSources": [
+      {
+        "type": "structured",
+        "name": "SQL/localhost;AdventureWorks2017",
+        "connectionDetails": {
+          "protocol": "tds",
+          "address": {
+            "server": "localhost",
+            "database": "AdventureWorks2017"
+          },
+          "authentication": null,
+          "query": null
+        },
+        "credential": {
+          "AuthenticationKind": "UsernamePassword",
+          "Username": "data_reader",
+          "EncryptConnection": false
+        }
+      }
+    ],
+    "tables": [
+      {
+        "name": "CustomGroups",
+        "columns": [
+          {
+            "name": "GroupID",
+            "dataType": "int64",
+            "sourceColumn": "GroupID"
+          },
+          {
+            "name": "GroupName",
+            "dataType": "string",
+            "sourceColumn": "GroupName"
+          },
+          {
+            "name": "ProductID",
+            "dataType": "int64",
+            "sourceColumn": "ProductID"
+          },
+          {
+            "name": "ProductName",
+            "dataType": "string",
+            "sourceColumn": "ProductName"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/localhost;AdventureWorks2017\",",
+                "    dbo_CustomGroups = Source{[Schema=\"dbo\",Item=\"CustomGroups\"]}[Data]",
+                "in",
+                "    dbo_CustomGroups"
+              ]
+            }
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Group Hierarchy",
+            "levels": [
+              {
+                "name": "GroupName",
+                "ordinal": 0,
+                "column": "GroupName"
+              },
+              {
+                "name": "ProductName",
+                "ordinal": 1,
+                "column": "ProductName"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "TransactionHistory_Custom",
+        "columns": [
+          {
+            "name": "GroupID",
+            "dataType": "int64",
+            "sourceColumn": "GroupID"
+          },
+          {
+            "name": "TransactionID",
+            "dataType": "int64",
+            "sourceColumn": "TransactionID"
+          },
+          {
+            "name": "ProductID",
+            "dataType": "int64",
+            "sourceColumn": "ProductID"
+          },
+          {
+            "name": "ReferenceOrderID",
+            "dataType": "int64",
+            "sourceColumn": "ReferenceOrderID"
+          },
+          {
+            "name": "ReferenceOrderLineID",
+            "dataType": "int64",
+            "sourceColumn": "ReferenceOrderLineID"
+          },
+          {
+            "name": "TransactionDate",
+            "dataType": "dateTime",
+            "sourceColumn": "TransactionDate"
+          },
+          {
+            "name": "TransactionType",
+            "dataType": "string",
+            "sourceColumn": "TransactionType"
+          },
+          {
+            "name": "Quantity",
+            "dataType": "int64",
+            "sourceColumn": "Quantity"
+          },
+          {
+            "name": "ActualCost",
+            "dataType": "decimal",
+            "sourceColumn": "ActualCost"
+          },
+          {
+            "name": "ModifiedDate",
+            "dataType": "dateTime",
+            "sourceColumn": "ModifiedDate"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/localhost;AdventureWorks2017\",",
+                "    dbo_TransactionHistory_Custom = Source{[Schema=\"dbo\",Item=\"TransactionHistory_Custom\"]}[Data]",
+                "in",
+                "    dbo_TransactionHistory_Custom"
+              ]
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "TotalQuantity",
+            "expression": "SUM([Quantity])"
+          },
+          {
+            "name": "TotalActualCost",
+            "expression": "SUM([ActualCost])",
+            "formatString": "\\$#,0.00;(\\$#,0.00);\\$#,0.00",
+            "annotations": [
+              {
+                "name": "Format",
+                "value": "<Format Format=\"Currency\" Accuracy=\"2\" ThousandSeparator=\"True\"><Currency LCID=\"1033\" DisplayName=\"$ English (United States)\" Symbol=\"$\" PositivePattern=\"0\" NegativePattern=\"0\" /></Format>"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "4b902767-f00b-43b1-96dc-22b36758f0ab",
+        "fromTable": "TransactionHistory_Custom",
+        "fromColumn": "GroupID",
+        "toTable": "CustomGroups",
+        "toColumn": "GroupID"
+      }
+    ],
+    "annotations": [
+      {
+        "name": "ClientCompatibilityLevel",
+        "value": "500"
+      }
+    ]
+  }
+}
